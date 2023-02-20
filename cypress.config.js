@@ -4,4 +4,9 @@ module.exports = {
       // implement node event listeners here
     },
   },
+  env: {
+    key: '',
+    token: '',
+    apiUrl: 'https://api.trello.com'
+  }
 };

@@ -32,6 +32,7 @@ createBoard(boardName){
        const boardID = response.body.id
        cy.wrap(boardID).as('boardID')
       })
+      cy.reload()
 }
 setExistingListAsVariable(number){
     const numberOfList = number
@@ -74,6 +75,7 @@ createList(listName){
           cy.wrap(listID).as('listID')
         })
      })
+     cy.reload()
 }
 createCard(cardName){
     const nameOfCard = cardName
@@ -100,6 +102,7 @@ createCard(cardName){
         })
       })
     })
+    cy.reload()
 }
 moveCardFromCreatedListToExistingList(){
     cy.get('@boardID').then((boardID) => {
@@ -121,6 +124,7 @@ moveCardFromCreatedListToExistingList(){
     })
     })
 })
+cy.reload()
 }
 deleteCard(){
     cy.get('@cardID').then((cardID) => {
@@ -139,6 +143,7 @@ deleteCard(){
 }
 deleteBoard(){
       cy.get('@boardID').then((boardID) => this.deleteBoardByID(boardID));
+      cy.reload()
 }
 
 deleteBoardByID(boardId) {
@@ -158,7 +163,9 @@ deleteAllBoards(){
   cy.get('@boardArray').then((boardArray) => {
     boardArray.forEach((board) => {
         apiRequest.deleteBoardByID(board.id)
+        cy.reload()
     })
+    
 })
 }
 getAllBoardsInWorkspace(){

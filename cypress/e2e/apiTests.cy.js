@@ -19,6 +19,8 @@ describe('API tests', () => {
     
     apiRequest.deleteBoard()
 
+    apiRequest.getAllBoardsInWorkspace()
+
     apiRequest.deleteAllBoards()
 })
 

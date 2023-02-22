@@ -138,19 +138,42 @@ deleteCard(){
 })
 }
 deleteBoard(){
-    cy.get('@boardID').then((boardID) => {
-        cy.request({
-            url: Cypress.env('apiUrl')+'/1/boards/'+boardID,
-            method: 'DELETE',
-            qs: {
-             'key':Cypress.env('key'), 
-             'token': Cypress.env('token')
-            }
-        }).then((response) => {
-            expect(response.status).to.eq(200)
-            expect(response.statusText).to.eq("OK")
-        })
+      cy.get('@boardID').then((boardID) => this.deleteBoardByID(boardID));
+}
+
+deleteBoardByID(boardId) {
+  cy.request({
+    url: Cypress.env('apiUrl')+'/1/boards/'+boardId,
+    method: 'DELETE',
+    qs: {
+     'key':Cypress.env('key'), 
+     'token': Cypress.env('token')
+    }
+}).then((response) => {
+    expect(response.status).to.eq(200)
+    expect(response.statusText).to.eq("OK")
+})
+}
+deleteAllBoards(){
+  cy.get('@boardArray').then((boardArray) => {
+    boardArray.forEach((board) => {
+        apiRequest.deleteBoardByID(board.id)
     })
+})
+}
+getAllBoardsInWorkspace(){
+  cy.request({
+    url: Cypress.env('apiUrl')+'/1/organizations/workspace93204874/boards',
+    method: 'GET',
+    qs: {
+     'key':Cypress.env('key'), 
+     'token': Cypress.env('token')
+    }
+}).then((response) => {
+    expect(response.status).to.eq(200)
+    const boardArray = response.body
+    cy.wrap(boardArray).as('boardArray')
+})
 }
 
 }

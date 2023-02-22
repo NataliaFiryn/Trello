@@ -18,6 +18,9 @@ describe('API tests', () => {
     apiRequest.deleteCard()
     
     apiRequest.deleteBoard()
+
+    apiRequest.deleteAllBoards()
 })
+
 })
 
